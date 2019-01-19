@@ -10,7 +10,8 @@
 
     RequiredModules   = @()
     FunctionsToExport = @(
-        'New-ErrorRecord'
+        'New-ErrorRecord',
+        'Set-ErrorRecord'
     )
     CmdletsToExport   = @()
     VariablesToExport = @()
