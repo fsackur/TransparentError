@@ -10,7 +10,7 @@
 
     RequiredModules   = @()
     FunctionsToExport = @(
-        '*'
+        'New-ErrorRecord'
     )
     CmdletsToExport   = @()
     VariablesToExport = @()
