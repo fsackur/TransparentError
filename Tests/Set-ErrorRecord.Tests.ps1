@@ -1,35 +1,19 @@
-function foo
-{
-    $script:CallStack = Get-PSCallStack
-    $script:InvocationInfo = $MyInvocation
-}
-
-function bar
-{
-    foo
-}
-
-function baz
-{
-    bar
-}
-
-
 Describe 'Set-ErrorRecord' {
 
-    $MyFile = $MyInvocation.MyCommand.ScriptBlock.File
+    $HelperFile = Join-Path $PSScriptRoot 'Helper.ps1'
+    . $HelperFile
 
     $ExpectedPosition = (
-        "At $MyFile`:9 char:5",
+        "At $HelperFile`:9 char:5",
         '+     foo',
         '+     ~~~'
     ) -join [Environment]::NewLine
 
     $ExpectedStack = (
-        "at foo, $MyFile`: line 3",
-        "at bar, $MyFile`: line 9",
-        "at baz, $MyFile`: line 14",
-        "at <ScriptBlock>, $MyFile`: line 20"
+        "at foo, $HelperFile`: line 3",
+        "at bar, $HelperFile`: line 9",
+        "at baz, $HelperFile`: line 14",
+        "at <ScriptBlock>, $HelperFile`: line 20"
     ) -join [Environment]::NewLine
 
 
@@ -40,7 +24,7 @@ Describe 'Set-ErrorRecord' {
 
     It 'Sets invocation info' {
 
-        $ErrorRecord.InvocationInfo.ScriptName | Should -Be $MyFile
+        $ErrorRecord.InvocationInfo.ScriptName | Should -Be $HelperFile
         $ErrorRecord.InvocationInfo.InvocationName | Should -Be 'foo'
         $ErrorRecord.InvocationInfo.PositionMessage | Should -Be $ExpectedPosition
     }
