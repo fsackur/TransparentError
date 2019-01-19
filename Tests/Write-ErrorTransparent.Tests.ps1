@@ -19,4 +19,17 @@ Describe 'Write-ErrorTransparent' {
         $Result.InvocationInfo.PositionMessage | Should -Not -BeLike $ErrorRecord.InvocationInfo.PositionMessage
         $Result.ScriptStackTrace               | Should -Not -BeLike $ErrorRecord.ScriptStackTrace
     }
+
+
+    $ErrorRecord | Write-ErrorTransparent -Transparent -ErrorAction SilentlyContinue -ErrorVariable Result
+
+    It 'Outputs errors unaltered with -Transparent switch' {
+
+        $Result.Count | Should -Be 1
+        $Result = $Result[0]
+
+        $Result.InvocationInfo.InvocationName  | Should -BeLike $ErrorRecord.InvocationInfo.InvocationName
+        $Result.InvocationInfo.PositionMessage | Should -BeLike $ErrorRecord.InvocationInfo.PositionMessage
+        $Result.ScriptStackTrace               | Should -BeLike $ErrorRecord.ScriptStackTrace
+    }
 }
