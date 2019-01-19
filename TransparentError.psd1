@@ -11,6 +11,7 @@
     RequiredModules   = @()
     FunctionsToExport = @(
         'New-ErrorRecord',
+        'New-InvocationInfo',
         'Set-ErrorRecord',
         'Write-ErrorTransparent'
     )
