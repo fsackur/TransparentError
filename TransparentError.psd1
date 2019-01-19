@@ -11,7 +11,8 @@
     RequiredModules   = @()
     FunctionsToExport = @(
         'New-ErrorRecord',
-        'Set-ErrorRecord'
+        'Set-ErrorRecord',
+        'Write-ErrorTransparent'
     )
     CmdletsToExport   = @()
     VariablesToExport = @()
